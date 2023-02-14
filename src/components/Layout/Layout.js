@@ -8,9 +8,10 @@ function Layout({ children }) {
 export default Layout;
 
 const Container = styled.div`
+  position: absolute;
+  top: 100px;
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100vw;
   height: 100vh;
 `;

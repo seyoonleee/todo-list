@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import useStore from '../../../store/store';
 
 const TodoItem = ({ item }) => {
-  const { todoList, addTodo, removeTodo } = useStore(state => state);
-  console.log(item);
+  const { removeTodo, updateTodo } = useStore(state => state);
   const [inputValue, setInputValue] = useState(item.content);
+
+  useEffect(() => {
+    updateTodo(inputValue, item.id);
+  }, [inputValue]);
 
   return (
     <Wrapper>
@@ -25,7 +28,12 @@ const Wrapper = styled.div`
 
 const Content = styled.input.attrs(() => ({
   type: 'text',
-}))``;
+}))`
+  border: none;
+  &:focus {
+    outline: none;
+  }
+`;
 
 const Delete = styled.button``;
 

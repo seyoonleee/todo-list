@@ -4,26 +4,25 @@ import TodoItem from './components/TodoItem';
 import useStore from '../../store/store';
 
 const Main = () => {
-  const { todoList, addTodo, removeTodo } = useStore(state => state);
+  const { todoList, addTodo } = useStore(state => state);
   const [inputValue, setInputValue] = useState('');
-
-  useEffect(() => {
-    // console.log(addTodo({ id: 4, content: '할일4' }));
-    // removeTodo(2);
-  }, []);
-
   console.log(todoList);
 
   const handleSubmit = e => {
     e.preventDefault();
     addTodo(inputValue);
+    setInputValue('');
   };
 
   return (
     <Template>
       <Title>Todo List</Title>
       <WrapperInsert onSubmit={handleSubmit}>
-        <input onChange={e => setInputValue(e.target.value)} />
+        <input
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
+          autoFocus
+        />
         <button>추가</button>
       </WrapperInsert>
       {todoList.map(item => (
@@ -39,7 +38,5 @@ const Title = styled.div`
   background-color: aqua;
 `;
 const WrapperInsert = styled.form``;
-const TodoList = styled.div``;
-const TodoListItem = styled.div``;
 
 export default Main;
