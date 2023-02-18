@@ -3,12 +3,9 @@ import styled from 'styled-components';
 import useStore from '../../../store/store';
 
 const TodoItem = ({ item }) => {
-  const { removeTodo, updateTodo } = useStore(state => state);
+  const removeTodo = useStore(state => state.removeTodo);
+  const updateTodo = useStore(state => state.updateTodo);
   const [inputValue, setInputValue] = useState(item.content);
-
-  useEffect(() => {
-    updateTodo(inputValue, item.id);
-  }, [inputValue]);
 
   return (
     <Wrapper>
@@ -16,7 +13,8 @@ const TodoItem = ({ item }) => {
         value={inputValue}
         onChange={e => setInputValue(e.target.value)}
       />
-      <Delete onClick={() => removeTodo(item.id)}>x</Delete>
+      <button onClick={() => updateTodo(inputValue, item.id)}>수정</button>
+      <button onClick={() => removeTodo(item.id)}>x</button>
     </Wrapper>
   );
 };
@@ -34,7 +32,5 @@ const Content = styled.input.attrs(() => ({
     outline: none;
   }
 `;
-
-const Delete = styled.button``;
 
 export default TodoItem;
